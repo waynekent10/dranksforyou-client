@@ -6,9 +6,19 @@ import { registerUser } from '../utils/auth'; // Update with path to registerUse
 
 function RegisterForm({ user, updateUser }) {
   const [formData, setFormData] = useState({
-    bio: '',
+    name: user.name,
+    email: user.email,
+    username: user.username,
+    admin: user.admin,
     uid: user.uid,
   });
+
+  const handleChange = ({ target }) => {
+    setFormData((prev) => ({
+      ...prev,
+      [target.name]: target.value,
+    }));
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -17,10 +27,38 @@ function RegisterForm({ user, updateUser }) {
 
   return (
     <Form onSubmit={handleSubmit}>
-      <Form.Group className="mb-3" controlId="formBasicEmail">
-        <Form.Label>Gamer Bio</Form.Label>
-        <Form.Control as="textarea" name="bio" required placeholder="Enter your Bio" onChange={({ target }) => setFormData((prev) => ({ ...prev, [target.name]: target.value }))} />
-        <Form.Text className="text-muted">Let other gamers know a little bit about you...</Form.Text>
+      <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea2">
+        <Form.Label>Enter Name</Form.Label>
+        <Form.Control
+          type="text"
+          name="name"
+          placeholder="Enter your name"
+          value={formData.name}
+          onChange={handleChange}
+          required
+        />
+      </Form.Group>
+      <Form.Group className="mb-4" controlId="exampleForm.ControlTextarea3">
+        <Form.Label>Enter Email</Form.Label>
+        <Form.Control
+          type="email"
+          name="email"
+          placeholder="Enter your email"
+          value={formData.email}
+          onChange={handleChange}
+          required
+        />
+      </Form.Group>
+      <Form.Group className="mb-5" controlId="exampleForm.ControlTextarea4">
+        <Form.Label>Enter Username</Form.Label>
+        <Form.Control
+          type="text"
+          name="username"
+          placeholder="Enter your username"
+          value={formData.username}
+          onChange={handleChange}
+          required
+        />
       </Form.Group>
       <Button variant="primary" type="submit">
         Submit
@@ -31,6 +69,10 @@ function RegisterForm({ user, updateUser }) {
 
 RegisterForm.propTypes = {
   user: PropTypes.shape({
+    username: PropTypes.string.isRequired,
+    email: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    admin: PropTypes.bool.isRequired,
     uid: PropTypes.string.isRequired,
   }).isRequired,
   updateUser: PropTypes.func.isRequired,
