@@ -42,7 +42,7 @@ export default function NavBar() {
             <Link href="/" passHref>
               <Nav.Link>Favorites </Nav.Link>
             </Link>
-            <Link href="/about us" passHref>
+            <Link href="/about" passHref>
               <Nav.Link>About us</Nav.Link>
             </Link>
           </Nav>
