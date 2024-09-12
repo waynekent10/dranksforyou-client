@@ -39,6 +39,9 @@ export default function NavBar() {
             <Link href="/" passHref>
               <Nav.Link>Dranks</Nav.Link>
             </Link>
+            <Link href="/ingredients" passHref>
+              <Nav.Link>Ingredients </Nav.Link>
+            </Link>
             <Link href="/" passHref>
               <Nav.Link>Favorites </Nav.Link>
             </Link>
