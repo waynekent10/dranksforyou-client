@@ -1,9 +1,7 @@
 import { clientCredentials } from '../utils/client';
 
-const endpoint = clientCredentials.databaseURL;
-
 const createIngredient = (payload) => new Promise((resolve, reject) => {
-  fetch(`${endpoint}/ingredients`, {
+  fetch(`${clientCredentials.databaseURL}/ingredient`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -16,19 +14,7 @@ const createIngredient = (payload) => new Promise((resolve, reject) => {
 });
 
 const getIngredients = () => new Promise((resolve, reject) => {
-  fetch(`${endpoint}/ingredients`, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  })
-    .then((response) => response.json())
-    .then((data) => resolve(Object.values(data)))
-    .catch(reject);
-});
-
-const getSingleIngredient = (id) => new Promise((resolve, reject) => {
-  fetch(`${endpoint}/ingredients/${id}`, {
+  fetch(`${clientCredentials.databaseURL}/ingredient`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -39,27 +25,36 @@ const getSingleIngredient = (id) => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
-const updateIngredient = (id, payload) => new Promise((resolve, reject) => {
-  fetch(`${endpoint}/ingredients/${id}`, {
-    method: 'PATCH',
+const getSingleIngredient = (id) => new Promise((resolve, reject) => {
+  fetch(`${clientCredentials.databaseURL}/ingredient/${id}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+    .then((data) => resolve(data))
+    .catch(reject);
+});
+
+const updateIngredient = (payload) => new Promise((resolve, reject) => {
+  fetch(`${clientCredentials.databaseURL}/ingredient/${payload.id}`, {
+    method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(payload),
   })
-    .then((response) => response.json())
-    .then((data) => resolve(data))
+    .then(() => resolve())
     .catch(reject);
 });
 
 const deleteSingleIngredient = (id) => new Promise((resolve, reject) => {
-  fetch(`${endpoint}/ingredients/${id}.json`, {
+  fetch(`${clientCredentials.databaseURL}/ingredient/${id}`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
     },
   })
-    .then((response) => response.json())
     .then((data) => resolve(data))
     .catch(reject);
 });

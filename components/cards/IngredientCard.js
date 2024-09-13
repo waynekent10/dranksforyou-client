@@ -4,29 +4,24 @@ import { Button, Card } from 'react-bootstrap';
 import Link from 'next/link';
 import { deleteSingleIngredient } from '../../api/ingredientData';
 
-function IngredientCard({ ingredientObj, onUpdate }) {
-  const deleteAnIngredient = () => {
+export default function IngredientCard({ ingredientObj, onUpdate }) {
+  const deleteThisIngredient = () => {
     if (window.confirm(`Delete ${ingredientObj.name}?`)) {
       deleteSingleIngredient(ingredientObj.id).then(() => onUpdate());
     }
   };
 
   return (
-    <Card style={{ width: '18rem', margin: '10px' }}>
-      <Card.Img variant="top" src={ingredientObj.image} alt={ingredientObj.name} style={{ height: '300px' }} />
+    <Card className="card" style={{ width: '18rem', margin: '10px', border: '1px solid' }}>
+      <Card.Title style={{ textAlign: 'center', paddingTop: '10px' }}>{ingredientObj.name}</Card.Title>
       <Card.Body>
-        <Card.Title>Name: {ingredientObj.name}</Card.Title>
-        <div style={{ display: 'flex', justifyContent: 'center' }}>
-          <Link href={`/ingredients/${ingredientObj.id}`} passHref>
-            <Button variant="success" className="m-2">VIEW</Button>
-          </Link>
-          <Link href={`/ingredients/edit/${ingredientObj.id}`} passHref>
-            <Button variant="warning" className="m-2">EDIT</Button>
-          </Link>
-          <Button variant="secondary" onClick={deleteAnIngredient} className="m-2">
-            DELETE
-          </Button>
-        </div>
+        <p style={{ textAlign: 'center' }} className="card-text bold">Image: {ingredientObj.image}</p>
+        <Link href={`/ingredient/edit/${ingredientObj.id}`} passHref>
+          <Button variant="info">EDIT</Button>
+        </Link>
+        <Button variant="danger" onClick={deleteThisIngredient} className="m-2">
+          DELETE
+        </Button>
       </Card.Body>
     </Card>
   );
@@ -34,11 +29,9 @@ function IngredientCard({ ingredientObj, onUpdate }) {
 
 IngredientCard.propTypes = {
   ingredientObj: PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
+    id: PropTypes.number,
+    name: PropTypes.string,
     image: PropTypes.string,
   }).isRequired,
   onUpdate: PropTypes.func.isRequired,
 };
-
-export default IngredientCard;

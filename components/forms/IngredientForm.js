@@ -1,24 +1,25 @@
 import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
-import { Button, Form, FloatingLabel } from 'react-bootstrap';
 import { useRouter } from 'next/router';
-import { createIngredient, updateIngredient } from '../../api/ingredientData';
+import PropTypes from 'prop-types';
+import FloatingLabel from 'react-bootstrap/FloatingLabel';
+import Form from 'react-bootstrap/Form';
+import { Button } from 'react-bootstrap';
 import { useAuth } from '../../utils/context/authContext';
+import { createIngredient, updateIngredient } from '../../api/ingredientData';
 
 const initialState = {
-  id: '',
   name: '',
   image: '',
 };
 
-function IngredientForm({ obj }) {
+export default function IngredientForm({ obj }) {
   const [formInput, setFormInput] = useState(initialState);
   const router = useRouter();
   const { user } = useAuth();
 
   useEffect(() => {
     if (obj.id) setFormInput(obj);
-  }, [obj]);
+  }, [obj], user);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -31,24 +32,21 @@ function IngredientForm({ obj }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (obj.id) {
-      updateIngredient(formInput).then(() => router.push(`/ingredients/${obj.id}`));
+      updateIngredient(formInput).then(() => router.push(`/ingredient/${obj.id}`));
     } else {
-      const payload = { ...formInput, uid: user.uid };
-      createIngredient(payload).then(({ name }) => {
-        const patchPayload = { id: name };
-        updateIngredient(patchPayload).then(() => router.push('/ingredients'));
-      });
+      const payload = { ...formInput };
+      createIngredient(payload).then(() => router.push('/ingredient'));
     }
   };
-
   return (
     <Form onSubmit={handleSubmit}>
       <h2 className="text-white mt-5">{obj.id ? 'Update' : 'Create'} Ingredient</h2>
 
+      {/* Name INPUT  */}
       <FloatingLabel controlId="floatingInput1" label="Name" className="mb-3">
         <Form.Control
           type="text"
-          placeholder="Enter Ingredient name"
+          placeholder="Enter a Name"
           name="name"
           value={formInput.name}
           onChange={handleChange}
@@ -56,11 +54,11 @@ function IngredientForm({ obj }) {
         />
       </FloatingLabel>
 
-      {/* IMAGE INPUT */}
-      <FloatingLabel controlId="floatingInput2" label="Image" className="mb-3">
+      {/* ROLE INPUT  */}
+      <FloatingLabel controlId="floatingInput3" label="image" className="mb-3">
         <Form.Control
           type="url"
-          placeholder="Enter an image URL"
+          placeholder="Enter image url"
           name="image"
           value={formInput.image}
           onChange={handleChange}
@@ -68,7 +66,7 @@ function IngredientForm({ obj }) {
         />
       </FloatingLabel>
 
-      {/* SUBMIT BUTTON */}
+      {/* SUBMIT BUTTON  */}
       <Button type="submit">{obj.id ? 'Update' : 'Create'} Ingredient</Button>
     </Form>
   );
@@ -76,7 +74,7 @@ function IngredientForm({ obj }) {
 
 IngredientForm.propTypes = {
   obj: PropTypes.shape({
-    id: PropTypes.string,
+    id: PropTypes.number,
     name: PropTypes.string,
     image: PropTypes.string,
   }),
@@ -85,5 +83,3 @@ IngredientForm.propTypes = {
 IngredientForm.defaultProps = {
   obj: initialState,
 };
-
-export default IngredientForm;
