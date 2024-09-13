@@ -4,16 +4,18 @@ import Link from 'next/link';
 import Head from 'next/head';
 import { getIngredients } from '../api/ingredientData';
 import IngredientCard from '../components/cards/IngredientCard';
+import { useAuth } from '../utils/context/authContext';
 
-export default function Activity() {
+export default function IngredientsPage() {
   const [ingredients, setIngredients] = useState([]);
-
+  const { user } = useAuth();
   const getAllIngredients = () => {
-    getIngredients().then(setIngredients);
+    getIngredients(user.uid).then(setIngredients);
   };
   useEffect(() => {
     getAllIngredients();
-  }, []);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user]);
   return (
     <>
       <Head>
