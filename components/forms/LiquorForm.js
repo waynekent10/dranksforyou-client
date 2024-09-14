@@ -5,7 +5,7 @@ import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import Form from 'react-bootstrap/Form';
 import { Button } from 'react-bootstrap';
 import { useAuth } from '../../utils/context/authContext';
-import { createLiquor, updateLiqour } from '../../api/liquorData';
+import { createLiquor, updateLiquor } from '../../api/liquorData';
 
 const initialState = {
   name: '',
@@ -32,7 +32,7 @@ export default function LiquorForm({ obj }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (obj.id) {
-      updateLiqour(formInput).then(() => router.push(`/liquor/${obj.id}`));
+      updateLiquor(formInput).then(() => router.push('/liquors'));
     } else {
       const payload = { ...formInput };
       createLiquor(payload).then(() => router.push('/liquors'));
