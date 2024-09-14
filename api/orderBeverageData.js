@@ -38,6 +38,17 @@ const deleteSingleOrderBev = (id) => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
+const getSingleOrderBev = (id) => new Promise((resolve, reject) => {
+  fetch(`${clientCredentials.databaseURL}/orderbeverage/${id}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+    .then((response) => response.json())
+    .then((data) => resolve(data))
+    .catch(reject);
+});
 export {
-  createOrderBev, getOrderBevs, deleteSingleOrderBev,
+  createOrderBev, getOrderBevs, getSingleOrderBev, deleteSingleOrderBev,
 };
