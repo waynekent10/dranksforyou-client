@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
+import Link from 'next/link';
 import { deleteSingleOrderBev } from '../../api/orderBeverageData';
 
 export default function OrderBeverageCard({ orderBeverageObj, onUpdate }) {
@@ -24,6 +25,9 @@ export default function OrderBeverageCard({ orderBeverageObj, onUpdate }) {
           Order Total: ${orderBeverageObj.order.order_total} <br />
           Payment Type: {orderBeverageObj.order.payment_type}
         </Card.Text>
+        <Link href={`/orderbeverage/${orderBeverageObj.id}`} passHref>
+          <Button variant="success" className="m-2">VIEW</Button>
+        </Link>
         <Button variant="danger" onClick={deleteTheOb} className="m-2">
           DELETE
         </Button>
