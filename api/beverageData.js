@@ -1,18 +1,5 @@
 import { clientCredentials } from '../utils/client';
 
-const createBeverage = (payload) => new Promise((resolve, reject) => {
-  fetch(`${clientCredentials.databaseURL}/beverage`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(payload),
-  })
-    .then((response) => response.json())
-    .then((data) => resolve(data))
-    .catch(reject);
-});
-
 const getBeverages = () => new Promise((resolve, reject) => {
   fetch(`${clientCredentials.databaseURL}/beverage`, {
     method: 'GET',
@@ -60,6 +47,19 @@ const deleteSingleBeverage = (id) => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
+const createBeverage = (payload) => new Promise((resolve, reject) => {
+  fetch(`${clientCredentials.databaseURL}/beverage`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(payload),
+  })
+    .then((response) => response.json())
+    .then((data) => resolve(data))
+    .catch(reject);
+});
+
 export {
-  createBeverage, getBeverages, getSingleBeverage, updateBeverage, deleteSingleBeverage,
+  getBeverages, getSingleBeverage, updateBeverage, deleteSingleBeverage, createBeverage,
 };

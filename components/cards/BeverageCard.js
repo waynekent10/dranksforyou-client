@@ -18,13 +18,6 @@ function BeverageCard({ beverageObj, onUpdate }) {
         <Card.Title>Name: {beverageObj.name}</Card.Title>
         <Card.Body>Description: {beverageObj.description}</Card.Body>
         <div style={{ display: 'flex', justifyContent: 'center' }}>
-          <Button
-            variant="success"
-            onClick={() => onUpdate(beverageObj)}
-            className="m-2"
-          >
-            Add to Orders
-          </Button>
           <Link href={`/beverage/edit/${beverageObj.id}`} passHref>
             <Button variant="warning" className="m-2">EDIT</Button>
           </Link>

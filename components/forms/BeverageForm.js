@@ -37,8 +37,8 @@ export default function BeverageForm({ obj }) {
         image: obj.image,
         price: obj.price,
         userId: user.id,
-        liquorId: obj.liquor?.id || 0,
-        ingredientId: obj.ingredient?.id || 0,
+        liquor_id: obj.liquor?.id || 1,
+        ingredient_id: obj.ingredient?.id || 1,
       });
     }
   }, [obj, user]);
@@ -56,7 +56,8 @@ export default function BeverageForm({ obj }) {
     if (obj.id) {
       updateBeverage(formInput).then(() => router.push('/beverages'));
     } else {
-      createBeverage(formInput).then(() => router.push('/beverages'));
+      const payload = { ...formInput };
+      createBeverage(payload).then(() => router.push('/beverages'));
     }
   };
 
@@ -104,9 +105,9 @@ export default function BeverageForm({ obj }) {
       <FloatingLabel controlId="floatingSelect" label="Liquor" className="mb-3">
         <Form.Select
           aria-label="Liquor"
-          name="liquorId"
+          name="liquor_id"
           onChange={handleChange}
-          value={formInput.liquorId}
+          value={formInput.liquor_id}
           required
         >
           <option value="">Select a Liquor</option>
@@ -122,9 +123,9 @@ export default function BeverageForm({ obj }) {
       <FloatingLabel controlId="floatingSelect2" label="Ingredient" className="mb-3">
         <Form.Select
           aria-label="Ingredient"
-          name="ingredientId"
+          name="ingredient_id"
           onChange={handleChange}
-          value={formInput.ingredientId}
+          value={formInput.ingredient_id}
           required
         >
           <option value="">Select an Ingredient</option>
