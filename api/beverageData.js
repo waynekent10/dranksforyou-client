@@ -37,23 +37,18 @@ const getSingleBeverage = (id) => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
-const updateBeverage = (id, payload) => new Promise((resolve, reject) => {
+const updateBeverage = (payload) => new Promise((resolve, reject) => {
   fetch(`${clientCredentials.databaseURL}/beverage/${payload.id}`, {
-    method: 'PATCH',
+    method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(payload),
   })
-    .then((data) => {
-      if (data) {
-        resolve(data);
-      } else {
-        resolve([]);
-      }
-    })
+    .then(() => resolve())
     .catch(reject);
 });
+
 const deleteSingleBeverage = (id) => new Promise((resolve, reject) => {
   fetch(`${clientCredentials.databaseURL}/beverage/${id}`, {
     method: 'DELETE',

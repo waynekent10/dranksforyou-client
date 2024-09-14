@@ -54,7 +54,7 @@ export default function BeverageForm({ obj }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (obj.id) {
-      updateBeverage(formInput).then(() => router.push(`/beverages/${obj.id}`));
+      updateBeverage(formInput).then(() => router.push('/beverages'));
     } else {
       createBeverage(formInput).then(() => router.push('/beverages'));
     }
@@ -71,6 +71,18 @@ export default function BeverageForm({ obj }) {
           placeholder="Enter a Name"
           name="name"
           value={formInput.name}
+          onChange={handleChange}
+          required
+        />
+      </FloatingLabel>
+
+      {/* Name INPUT */}
+      <FloatingLabel controlId="floatingInput1" label="Description" className="mb-3">
+        <Form.Control
+          type="text"
+          placeholder="Enter a Description"
+          name="description"
+          value={formInput.description}
           onChange={handleChange}
           required
         />

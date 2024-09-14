@@ -32,17 +32,15 @@ export default function IngredientForm({ obj }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (obj.id) {
-      updateIngredient(formInput).then(() => router.push(`/ingredient/${obj.id}`));
+      updateIngredient(formInput).then(() => router.push('/ingredients'));
     } else {
-      const payload = { ...formInput };
-      createIngredient(payload).then(() => router.push('/ingredient'));
+      createIngredient(formInput).then(() => router.push('/ingredients'));
     }
   };
+
   return (
     <Form onSubmit={handleSubmit}>
-      <h2 className="text-white mt-5">{obj.id ? 'Update' : 'Create'} Ingredient</h2>
-
-      {/* Name INPUT  */}
+      {/* Name INPUT */}
       <FloatingLabel controlId="floatingInput1" label="Name" className="mb-3">
         <Form.Control
           type="text"
@@ -54,11 +52,11 @@ export default function IngredientForm({ obj }) {
         />
       </FloatingLabel>
 
-      {/* ROLE INPUT  */}
-      <FloatingLabel controlId="floatingInput3" label="image" className="mb-3">
+      {/* Image URL INPUT */}
+      <FloatingLabel controlId="floatingInput3" label="Image" className="mb-3">
         <Form.Control
           type="url"
-          placeholder="Enter image url"
+          placeholder="Enter image URL"
           name="image"
           value={formInput.image}
           onChange={handleChange}
@@ -66,8 +64,12 @@ export default function IngredientForm({ obj }) {
         />
       </FloatingLabel>
 
-      {/* SUBMIT BUTTON  */}
-      <Button type="submit">{obj.id ? 'Update' : 'Create'} Ingredient</Button>
+      {/* SUBMIT BUTTON */}
+      {obj.id ? (
+        <Button type="submit" variant="warning">Update Ingredient</Button>
+      ) : (
+        <Button type="submit" variant="success">Create Ingredient</Button>
+      )}
     </Form>
   );
 }

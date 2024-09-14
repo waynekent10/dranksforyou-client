@@ -9,13 +9,19 @@ import BeverageCard from '../components/cards/BeverageCard';
 export default function BeveragesPage() {
   const [beverages, setBeverages] = useState([]);
   const { user } = useAuth();
+
+  // Fetch beverages when user is available
   const getAllBeverages = () => {
-    getBeverages(user.uid).then(setBeverages);
+    if (user && user.uid) {
+      getBeverages(user.uid).then(setBeverages).catch(console.error); // Handle errors
+    }
   };
+
   useEffect(() => {
-    getBeverages();
+    getAllBeverages(); // Call the function to get beverages
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
+
   return (
     <>
       <Head>
