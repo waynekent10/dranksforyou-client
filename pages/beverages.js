@@ -10,18 +10,13 @@ export default function BeveragesPage() {
   const [beverages, setBeverages] = useState([]);
   const { user } = useAuth();
 
-  // Fetch beverages when user is available
   const getAllBeverages = () => {
-    if (user && user.uid) {
-      getBeverages(user.uid).then(setBeverages).catch(console.error);
-    }
+    getBeverages(user.uid).then(setBeverages);
   };
-
   useEffect(() => {
-    getAllBeverages(); // Call the function to get beverages
+    getAllBeverages();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
-
   return (
     <>
       <Head>
