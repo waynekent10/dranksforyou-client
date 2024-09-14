@@ -3,7 +3,7 @@ import { clientCredentials } from '../utils/client';
 const endpoint = clientCredentials.databaseURL;
 
 const createOrderBev = (payload) => new Promise((resolve, reject) => {
-  fetch(`${endpoint}/orderbeverages`, {
+  fetch(`${endpoint}/orderbeverage`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -16,7 +16,7 @@ const createOrderBev = (payload) => new Promise((resolve, reject) => {
 });
 
 const getOrderBevs = () => new Promise((resolve, reject) => {
-  fetch(`${endpoint}/orderbeverages.json`, {
+  fetch(`${endpoint}/orderbeverage`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -27,30 +27,17 @@ const getOrderBevs = () => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
-const getSingleOrderBev = (id) => new Promise((resolve, reject) => {
-  fetch(`${endpoint}/orderbeverages/${id}`, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  })
-    .then((response) => response.json())
-    .then((data) => resolve(data))
-    .catch(reject);
-});
-
 const deleteSingleOrderBev = (id) => new Promise((resolve, reject) => {
-  fetch(`${endpoint}/orderbeverages/${id}.json`, {
+  fetch(`${endpoint}/orderbeverage/${id}`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
     },
   })
-    .then((response) => response.json())
     .then((data) => resolve(data))
     .catch(reject);
 });
 
 export {
-  createOrderBev, getOrderBevs, getSingleOrderBev, deleteSingleOrderBev,
+  createOrderBev, getOrderBevs, deleteSingleOrderBev,
 };

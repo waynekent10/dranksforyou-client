@@ -4,12 +4,13 @@ import PropTypes from 'prop-types';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import Form from 'react-bootstrap/Form';
 import { Button } from 'react-bootstrap';
-import { useAuth } from '../../utils/context/authContext';
 import { createIngredient, updateIngredient } from '../../api/ingredientData';
+import { useAuth } from '../../utils/context/authContext';
 
 const initialState = {
   name: '',
   image: '',
+  id: 0,
 };
 
 export default function IngredientForm({ obj }) {
@@ -40,6 +41,8 @@ export default function IngredientForm({ obj }) {
 
   return (
     <Form onSubmit={handleSubmit}>
+      <h2 className="text-white mt-5">{obj.id ? 'Update' : 'Create'} Ingredient</h2>
+
       {/* Name INPUT */}
       <FloatingLabel controlId="floatingInput1" label="Name" className="mb-3">
         <Form.Control
@@ -65,11 +68,7 @@ export default function IngredientForm({ obj }) {
       </FloatingLabel>
 
       {/* SUBMIT BUTTON */}
-      {obj.id ? (
-        <Button type="submit" variant="warning">Update Ingredient</Button>
-      ) : (
-        <Button type="submit" variant="success">Create Ingredient</Button>
-      )}
+      <Button type="submit">{obj.id ? 'Update' : 'Create'} Ingredient</Button>
     </Form>
   );
 }

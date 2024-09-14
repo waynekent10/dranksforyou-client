@@ -1,9 +1,7 @@
 import { clientCredentials } from '../utils/client';
 
-const endpoint = clientCredentials.databaseURL;
-
 const createOrder = (payload) => new Promise((resolve, reject) => {
-  fetch(`${endpoint}/orders`, {
+  fetch(`${clientCredentials.databaseURL}/order`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -16,7 +14,7 @@ const createOrder = (payload) => new Promise((resolve, reject) => {
 });
 
 const getOrders = () => new Promise((resolve, reject) => {
-  fetch(`${endpoint}/orders.json`, {
+  fetch(`${clientCredentials.databaseURL}/order`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -28,38 +26,35 @@ const getOrders = () => new Promise((resolve, reject) => {
 });
 
 const getSingleOrder = (id) => new Promise((resolve, reject) => {
-  fetch(`${endpoint}/orders/${id}`, {
+  fetch(`${clientCredentials.databaseURL}/order/${id}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
     },
   })
-    .then((response) => response.json())
     .then((data) => resolve(data))
     .catch(reject);
 });
 
-const updateOrder = (id, payload) => new Promise((resolve, reject) => {
-  fetch(`${endpoint}/orders/${id}`, {
+const updateOrder = (payload) => new Promise((resolve, reject) => {
+  fetch(`${clientCredentials.databaseURL}/order/${payload.id}`, {
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(payload),
   })
-    .then((response) => response.json())
     .then((data) => resolve(data))
     .catch(reject);
 });
 
 const deleteSingleOrder = (id) => new Promise((resolve, reject) => {
-  fetch(`${endpoint}/orders/${id}.json`, {
+  fetch(`${clientCredentials.databaseURL}/order/${id}`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
     },
   })
-    .then((response) => response.json())
     .then((data) => resolve(data))
     .catch(reject);
 });

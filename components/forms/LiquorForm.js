@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import Form from 'react-bootstrap/Form';
 import { Button } from 'react-bootstrap';
-import { useAuth } from '../../utils/context/authContext';
 import { createLiquor, updateLiquor } from '../../api/liquorData';
 
 const initialState = {
@@ -15,11 +14,15 @@ const initialState = {
 export default function LiquorForm({ obj }) {
   const [formInput, setFormInput] = useState(initialState);
   const router = useRouter();
-  const { user } = useAuth();
 
   useEffect(() => {
-    if (obj.id) setFormInput(obj);
-  }, [obj], user);
+    if (obj.id) {
+      setFormInput({
+        name: obj.name,
+        image: obj.image,
+      });
+    }
+  }, [obj]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -38,15 +41,16 @@ export default function LiquorForm({ obj }) {
       createLiquor(payload).then(() => router.push('/liquors'));
     }
   };
+
   return (
     <Form onSubmit={handleSubmit}>
       <h2 className="text-white mt-5">{obj.id ? 'Update' : 'Create'} Liquor</h2>
 
-      {/* Name INPUT  */}
+      {/* Name INPUT */}
       <FloatingLabel controlId="floatingInput1" label="Name" className="mb-3">
         <Form.Control
           type="text"
-          placeholder="Enter a Name"
+          placeholder="Enter the name"
           name="name"
           value={formInput.name}
           onChange={handleChange}
@@ -54,11 +58,11 @@ export default function LiquorForm({ obj }) {
         />
       </FloatingLabel>
 
-      {/* ROLE INPUT  */}
-      <FloatingLabel controlId="floatingInput3" label="image" className="mb-3">
+      {/* Image URL INPUT */}
+      <FloatingLabel controlId="floatingInput2" label="Image URL" className="mb-3">
         <Form.Control
           type="url"
-          placeholder="Enter image url"
+          placeholder="Enter image URL"
           name="image"
           value={formInput.image}
           onChange={handleChange}
@@ -66,7 +70,7 @@ export default function LiquorForm({ obj }) {
         />
       </FloatingLabel>
 
-      {/* SUBMIT BUTTON  */}
+      {/* Submit Button */}
       <Button type="submit">{obj.id ? 'Update' : 'Create'} Liquor</Button>
     </Form>
   );

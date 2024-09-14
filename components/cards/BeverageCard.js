@@ -2,12 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Button, Card } from 'react-bootstrap';
 import Link from 'next/link';
-import { deleteSingleOrderBev } from '../../api/orderBeverageData';
+import { deleteSingleOrder } from '../../api/orderData';
 
 function BeverageCard({ beverageObj, onUpdate }) {
   const deleteTheBeverage = () => {
     if (window.confirm(`Delete ${beverageObj.name}?`)) {
-      deleteSingleOrderBev(beverageObj.id).then(() => onUpdate());
+      deleteSingleOrder(beverageObj.id).then(() => onUpdate());
     }
   };
 
@@ -18,9 +18,13 @@ function BeverageCard({ beverageObj, onUpdate }) {
         <Card.Title>Name: {beverageObj.name}</Card.Title>
         <Card.Body>Description: {beverageObj.description}</Card.Body>
         <div style={{ display: 'flex', justifyContent: 'center' }}>
-          <Link href={`/beverage/${beverageObj.id}`} passHref>
-            <Button variant="success" className="m-2">VIEW</Button>
-          </Link>
+          <Button
+            variant="success"
+            onClick={() => onUpdate(beverageObj)}
+            className="m-2"
+          >
+            Add to Orders
+          </Button>
           <Link href={`/beverage/edit/${beverageObj.id}`} passHref>
             <Button variant="warning" className="m-2">EDIT</Button>
           </Link>

@@ -46,13 +46,7 @@ const updateLiquor = (payload) => new Promise((resolve, reject) => {
     },
     body: JSON.stringify(payload),
   })
-    .then((data) => {
-      if (data) {
-        resolve(data);
-      } else {
-        resolve([]);
-      }
-    })
+    .then(() => resolve())
     .catch(reject);
 });
 
