@@ -13,7 +13,7 @@ export default function LiquorCard({ liquorObj, onUpdate }) {
 
   return (
     <Card className="card" style={{ width: '18rem', margin: '10px', border: '1px solid' }}>
-      <Card.Title style={{ textAlign: 'center', paddingTop: '10px' }} />
+      <Card.Title>Name: {liquorObj.name}</Card.Title>
       <Card.Body>
         <Link href={`/liquor/edit/${liquorObj.id}`} passHref>
           <Button variant="info">EDIT</Button>

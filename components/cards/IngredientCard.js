@@ -13,7 +13,7 @@ export default function IngredientCard({ ingredientObj, onUpdate }) {
 
   return (
     <Card className="card" style={{ width: '18rem', margin: '10px', border: '1px solid' }}>
-      <Card.Title style={{ textAlign: 'center', paddingTop: '10px' }}>{ingredientObj.name}</Card.Title>
+      <Card.Title>Name: {ingredientObj.name}</Card.Title>
       <Card.Body>
         <p style={{ textAlign: 'center' }} className="card-text bold">Image: {ingredientObj.image}</p>
         <Link href={`/ingredient/edit/${ingredientObj.id}`} passHref>
