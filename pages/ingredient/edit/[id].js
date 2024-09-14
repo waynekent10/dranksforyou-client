@@ -6,11 +6,11 @@ import IngredientForm from '../../../components/forms/IngredientForm';
 export default function EditIngredient() {
   const [editItem, setEditItem] = useState({});
   const router = useRouter();
-  const { firebaseKey } = router.query;
+  const { id } = router.query;
 
   useEffect(() => {
-    getSingleIngredient(firebaseKey).then(setEditItem);
-  }, [firebaseKey]);
+    getSingleIngredient(id).then(setEditItem);
+  }, [id]);
 
   return (<IngredientForm obj={editItem} />);
 }

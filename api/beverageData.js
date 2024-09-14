@@ -51,7 +51,18 @@ const updateBeverage = (id, payload) => new Promise((resolve, reject) => {
     .then((data) => resolve(data))
     .catch(reject);
 });
+const deleteSingleBeverage = (id) => new Promise((resolve, reject) => {
+  fetch(`${endpoint}/beverages/${id}.json`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+    .then((response) => response.json())
+    .then((data) => resolve(data))
+    .catch(reject);
+});
 
 export {
-  createBeverage, getBeverages, getSingleBeverage, updateBeverage,
+  createBeverage, getBeverages, getSingleBeverage, updateBeverage, deleteSingleBeverage,
 };
