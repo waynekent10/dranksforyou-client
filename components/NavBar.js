@@ -36,8 +36,8 @@ export default function NavBar() {
             <Link href="/liquors" passHref>
               <Nav.Link>Liquor</Nav.Link>
             </Link>
-            <Link href="/" passHref>
-              <Nav.Link>Dranks</Nav.Link>
+            <Link href="/beverages" passHref>
+              <Nav.Link>Beverages</Nav.Link>
             </Link>
             <Link href="/ingredients" passHref>
               <Nav.Link>Ingredients </Nav.Link>

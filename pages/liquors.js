@@ -7,10 +7,10 @@ import { getLiquors } from '../api/liquorData';
 import LiquorCard from '../components/cards/LiquorCard';
 
 export default function LiquorsPage() {
-  const [liquors, setliquors] = useState([]);
+  const [liquors, setLiquors] = useState([]);
   const { user } = useAuth();
   const getAllLiquors = () => {
-    getLiquors(user.uid).then(setliquors);
+    getLiquors(user.uid).then(setLiquors);
   };
   useEffect(() => {
     getAllLiquors();
