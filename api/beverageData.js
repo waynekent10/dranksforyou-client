@@ -1,9 +1,7 @@
 import { clientCredentials } from '../utils/client';
 
-const endpoint = clientCredentials.databaseURL;
-
 const createBeverage = (payload) => new Promise((resolve, reject) => {
-  fetch(`${endpoint}/beverages`, {
+  fetch(`${clientCredentials.databaseURL}/beverage`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -16,7 +14,7 @@ const createBeverage = (payload) => new Promise((resolve, reject) => {
 });
 
 const getBeverages = () => new Promise((resolve, reject) => {
-  fetch(`${endpoint}/beverages.json`, {
+  fetch(`${clientCredentials.databaseURL}/beverage`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -28,7 +26,7 @@ const getBeverages = () => new Promise((resolve, reject) => {
 });
 
 const getSingleBeverage = (id) => new Promise((resolve, reject) => {
-  fetch(`${endpoint}/beverages/${id}`, {
+  fetch(`${clientCredentials.databaseURL}/beverage/${id}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -39,19 +37,29 @@ const getSingleBeverage = (id) => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
-const updateBeverage = (id, payload) => new Promise((resolve, reject) => {
-  fetch(`${endpoint}/beverages/${id}`, {
-    method: 'PATCH',
+const updateBeverage = (payload) => new Promise((resolve, reject) => {
+  fetch(`${clientCredentials.databaseURL}/beverage/${payload.id}`, {
+    method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(payload),
   })
-    .then((response) => response.json())
+    .then(() => resolve())
+    .catch(reject);
+});
+
+const deleteSingleBeverage = (id) => new Promise((resolve, reject) => {
+  fetch(`${clientCredentials.databaseURL}/beverage/${id}`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
     .then((data) => resolve(data))
     .catch(reject);
 });
 
 export {
-  createBeverage, getBeverages, getSingleBeverage, updateBeverage,
+  createBeverage, getBeverages, getSingleBeverage, updateBeverage, deleteSingleBeverage,
 };

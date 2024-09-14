@@ -15,6 +15,7 @@ function Home() {
       <h1>Hello {user.fbUser.displayName}! </h1>
 
     </div>
+
   );
 }
 
