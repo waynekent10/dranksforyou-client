@@ -9,12 +9,13 @@ Link to the deployed project: https://github.com/waynekent10/dranksforyou-client
 Project Board: https://github.com/users/waynekent10/projects/13
 
 
-Description of the user: The user can add edit drinks. The primary user is intended to be an admin
+Description of the user: At the beginning stages of this application, the user is designed to be the admin. The admin is able to CRUD on Beverages, ingredients, and Liquor. 
+Another user will not be able to delete the users cards on beverages and orders. 
 
 
 List of features: User can add liquors, ingredients, orders, orderbeverages. Users can edit. 
 
 Stretch goals: checkout basket, music player. 
 
-Link to Loom video walkthrough of your deployed postman (no more than 1 minute long! Make it great)
+Loom: 
 
