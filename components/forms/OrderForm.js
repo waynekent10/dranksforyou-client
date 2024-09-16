@@ -7,10 +7,9 @@ import { getUsers } from '../../api/userData';
 import { useAuth } from '../../utils/context/authContext';
 
 const initialState = {
-  userId: '',
-  orderTotal: '',
-  paymentType: '',
-  id: 0,
+  user_id: '',
+  order_total: '',
+  paymen_type: '',
 };
 
 export default function OrderForm({ obj }) {
@@ -25,12 +24,12 @@ export default function OrderForm({ obj }) {
     if (obj.id) {
       setFormInput({
         id: obj.id,
-        orderTotal: obj.orderTotal,
-        paymentType: obj.paymentType,
-        userId: obj.userId,
+        order_total: obj.order_total,
+        payment_type: obj.payment_type,
+        user_id: obj.user_id || user.id,
       });
     }
-  }, [obj]);
+  }, [obj, user]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -45,7 +44,8 @@ export default function OrderForm({ obj }) {
     if (obj.id) {
       updateOrder(formInput).then(() => router.push('/orders'));
     } else {
-      createOrder(formInput).then(() => router.push('/orders'));
+      const payload = { ...formInput, user_id: user.id };
+      createOrder(payload).then(() => router.push('/orders'));
     }
   };
 
@@ -55,15 +55,15 @@ export default function OrderForm({ obj }) {
       <FloatingLabel controlId="floatingSelect" label="User" className="mb-3">
         <Form.Select
           aria-label="User"
-          name="userId"
+          name="user_id"
           onChange={handleChange}
-          value={formInput.userId}
+          value={formInput.user_id}
           required
         >
           <option value="">Select a User</option>
-          {users?.map(() => (
-            <option key={user.id} value={user.id}>
-              {user.name}
+          {users?.map((u) => (
+            <option key={u.id} value={u.id}>
+              {u.name}
             </option>
           ))}
         </Form.Select>
@@ -74,8 +74,8 @@ export default function OrderForm({ obj }) {
         <Form.Control
           type="number"
           placeholder="Enter Order Total"
-          name="orderTotal"
-          value={formInput.orderTotal}
+          name="order_total"
+          value={formInput.order_total}
           onChange={handleChange}
           required
         />
@@ -86,8 +86,8 @@ export default function OrderForm({ obj }) {
         <Form.Control
           type="text"
           placeholder="Enter Payment Type"
-          name="paymentType"
-          value={formInput.paymentType}
+          name="payment_type"
+          value={formInput.payment_type}
           onChange={handleChange}
           required
         />
@@ -102,9 +102,9 @@ export default function OrderForm({ obj }) {
 OrderForm.propTypes = {
   obj: PropTypes.shape({
     id: PropTypes.number,
-    userId: PropTypes.string,
-    orderTotal: PropTypes.string,
-    paymentType: PropTypes.string,
+    user_id: PropTypes.string,
+    order_total: PropTypes.string,
+    payment_type: PropTypes.string,
   }),
 };
 

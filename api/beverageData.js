@@ -1,14 +1,14 @@
 import { clientCredentials } from '../utils/client';
 
-const getBeverages = () => new Promise((resolve, reject) => {
-  fetch(`${clientCredentials.databaseURL}/beverage`, {
+const getBeverages = (userId) => new Promise((resolve, reject) => {
+  fetch(`${clientCredentials.databaseURL}/beverage?user=${userId}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
     },
   })
     .then((response) => response.json())
-    .then((data) => resolve(Object.values(data)))
+    .then(resolve)
     .catch(reject);
 });
 

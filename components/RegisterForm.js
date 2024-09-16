@@ -60,6 +60,21 @@ function RegisterForm({ user, updateUser }) {
           required
         />
       </Form.Group>
+
+      <Form.Check
+        className="text-white mb-3"
+        type="switch"
+        id="admin"
+        name="admin"
+        label="Admin?"
+        checked={formData.admin}
+        onChange={(e) => {
+          setFormData((prevState) => ({
+            ...prevState,
+            admin: e.target.checked,
+          }));
+        }}
+      />
       <Button variant="primary" type="submit">
         Submit
       </Button>

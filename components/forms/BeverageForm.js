@@ -13,10 +13,10 @@ const initialState = {
   name: '',
   price: '',
   description: '',
-  ingredientId: 0,
-  liquorId: 0,
+  ingredient_id: '',
+  liquor_id: '',
   image: '',
-  id: 0,
+  user_id: '',
 };
 
 export default function BeverageForm({ obj }) {
@@ -36,7 +36,7 @@ export default function BeverageForm({ obj }) {
         name: obj.name,
         image: obj.image,
         price: obj.price,
-        userId: user.id,
+        user_id: user.id,
         liquor_id: obj.liquor?.id || 1,
         ingredient_id: obj.ingredient?.id || 1,
       });
@@ -56,7 +56,7 @@ export default function BeverageForm({ obj }) {
     if (obj.id) {
       updateBeverage(formInput).then(() => router.push('/beverages'));
     } else {
-      const payload = { ...formInput };
+      const payload = { ...formInput, user_id: user.id };
       createBeverage(payload).then(() => router.push('/beverages'));
     }
   };
@@ -162,6 +162,7 @@ BeverageForm.propTypes = {
     price: PropTypes.string,
     description: PropTypes.string,
     image: PropTypes.string,
+    user_id: PropTypes.string,
     liquor: PropTypes.shape({
       id: PropTypes.number,
     }),

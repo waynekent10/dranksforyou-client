@@ -10,7 +10,7 @@ import { useAuth } from '../../utils/context/authContext';
 const initialState = {
   name: '',
   image: '',
-  id: 0,
+  user_id: '',
 };
 
 export default function IngredientForm({ obj }) {
@@ -19,8 +19,14 @@ export default function IngredientForm({ obj }) {
   const { user } = useAuth();
 
   useEffect(() => {
-    if (obj.id) setFormInput(obj);
-  }, [obj], user);
+    if (obj.id) {
+      setFormInput({
+        id: obj.id,
+        name: obj.name,
+        user_id: user.id,
+      });
+    }
+  }, [obj, user]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -35,7 +41,8 @@ export default function IngredientForm({ obj }) {
     if (obj.id) {
       updateIngredient(formInput).then(() => router.push('/ingredients'));
     } else {
-      createIngredient(formInput).then(() => router.push('/ingredients'));
+      const payload = { ...formInput, user_id: user.id };
+      createIngredient(payload).then(() => router.push('/ingredients'));
     }
   };
 
@@ -55,18 +62,6 @@ export default function IngredientForm({ obj }) {
         />
       </FloatingLabel>
 
-      {/* Image URL INPUT */}
-      <FloatingLabel controlId="floatingInput3" label="Image" className="mb-3">
-        <Form.Control
-          type="url"
-          placeholder="Enter image URL"
-          name="image"
-          value={formInput.image}
-          onChange={handleChange}
-          required
-        />
-      </FloatingLabel>
-
       {/* SUBMIT BUTTON */}
       <Button type="submit">{obj.id ? 'Update' : 'Create'} Ingredient</Button>
     </Form>
@@ -77,7 +72,7 @@ IngredientForm.propTypes = {
   obj: PropTypes.shape({
     id: PropTypes.number,
     name: PropTypes.string,
-    image: PropTypes.string,
+    user_id: PropTypes.string,
   }),
 };
 
