@@ -17,5 +17,5 @@ List of features: User can add liquors, ingredients, orders, orderbeverages. Use
 
 Stretch goals: checkout basket, music player. 
 
-Loom: 
+Loom: https://www.loom.com/share/a538f595789d4125a6e2c9bded058abe?sid=6fa188d1-c4f7-4e01-ab8c-748230565540
 
