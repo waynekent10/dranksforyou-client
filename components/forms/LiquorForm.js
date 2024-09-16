@@ -5,24 +5,21 @@ import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import Form from 'react-bootstrap/Form';
 import { Button } from 'react-bootstrap';
 import { createLiquor, updateLiquor } from '../../api/liquorData';
+import { useAuth } from '../../utils/context/authContext';
 
 const initialState = {
   name: '',
-  image: '',
+  user_id: '',
 };
 
 export default function LiquorForm({ obj }) {
   const [formInput, setFormInput] = useState(initialState);
   const router = useRouter();
+  const { user } = useAuth();
 
   useEffect(() => {
-    if (obj.id) {
-      setFormInput({
-        name: obj.name,
-        image: obj.image,
-      });
-    }
-  }, [obj]);
+    if (obj.id) setFormInput(obj);
+  }, [obj, user]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -37,7 +34,7 @@ export default function LiquorForm({ obj }) {
     if (obj.id) {
       updateLiquor(formInput).then(() => router.push('/liquors'));
     } else {
-      const payload = { ...formInput };
+      const payload = { ...formInput, user_id: user.id };
       createLiquor(payload).then(() => router.push('/liquors'));
     }
   };
@@ -58,18 +55,6 @@ export default function LiquorForm({ obj }) {
         />
       </FloatingLabel>
 
-      {/* Image URL INPUT */}
-      <FloatingLabel controlId="floatingInput2" label="Image URL" className="mb-3">
-        <Form.Control
-          type="url"
-          placeholder="Enter image URL"
-          name="image"
-          value={formInput.image}
-          onChange={handleChange}
-          required
-        />
-      </FloatingLabel>
-
       {/* Submit Button */}
       <Button type="submit">{obj.id ? 'Update' : 'Create'} Liquor</Button>
     </Form>
@@ -80,7 +65,7 @@ LiquorForm.propTypes = {
   obj: PropTypes.shape({
     id: PropTypes.number,
     name: PropTypes.string,
-    image: PropTypes.string,
+    user_id: PropTypes.string,
   }),
 };
 

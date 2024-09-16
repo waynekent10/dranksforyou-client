@@ -13,8 +13,8 @@ const createLiquor = (payload) => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
-const getLiquors = () => new Promise((resolve, reject) => {
-  fetch(`${clientCredentials.databaseURL}/liquor`, {
+const getLiquors = (userId) => new Promise((resolve, reject) => {
+  fetch(`${clientCredentials.databaseURL}/liquor?user=${userId}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',

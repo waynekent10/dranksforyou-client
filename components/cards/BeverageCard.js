@@ -6,7 +6,7 @@ import { deleteSingleOrder } from '../../api/orderData';
 import { useAuth } from '../../utils/context/authContext';
 
 function BeverageCard({ beverageObj, onUpdate }) {
-  const { user } = useAuth(); // Get the currently authenticated user
+  const { user } = useAuth();
   const deleteTheBeverage = () => {
     if (window.confirm(`Delete ${beverageObj.name}?`)) {
       deleteSingleOrder(beverageObj.id).then(() => onUpdate());
